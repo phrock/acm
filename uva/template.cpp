@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/rock/program/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 ////////////////////////////////////////////////////////////////////////////////
 
