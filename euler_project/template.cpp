@@ -1,0 +1,1 @@
+/home/rock/program/topCoder/template.cpp

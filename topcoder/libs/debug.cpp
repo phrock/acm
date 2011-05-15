@@ -1,0 +1,5 @@
+template<class T> inline void print(T A) { cout << "{ "; for (__typeof((A).begin()) i = (A).begin(); i != (A).end(); ++i) cout << *i << ", "; cout << "}" << endl; }
+template<class T> inline void print2(T A) { cout << "{" << endl; for (__typeof((A).begin()) i = (A).begin(); i != (A).end(); ++i) {cout << " { "; for (__typeof((*i).begin()) j = (*i).begin(); j != (*i).end(); j++) cout << *j << ", "; cout << "}"; cout << endl;} cout << "}" << endl; }
+template<class T> inline void printp(T A) { cout << "{ "; for (__typeof((A).begin()) i = (A).begin(); i != (A).end(); ++i) {cout << "{" << i->first << ", " << i->second << "}"; cout << ", ";} cout << " }" << endl; }
+template<class T> inline void print(T A[], int n) { cout << "{ "; for (int i = 0; i<n; i++) { cout << A[i]; if (i+1<n) cout << ", ";} cout << " }" << endl; }
+template<class T> inline void print2(T A[], int n, int m) { cout << "{" << endl; for (int i = 0; i<n; ++i) {cout << " { "; for (int j = 0; j<m; ++j) { cout << A[i][j]; if (j+1<m) cout << ", ";} cout << " } " << endl; } cout << "}" << endl; }
