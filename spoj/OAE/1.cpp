@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,22 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+const int MOD = 314159;
+const int MAX = 1000000;
+int dp[MAX + 5][2];
 
 int main()
 {
-    
+    dp[0][0] = 1;
+    dp[0][1] = 0;
+    for (int i = 1; i <= MAX; ++i) {
+        dp[i][0] = (dp[i - 1][1] + dp[i - 1][0] * 9) % MOD;
+        dp[i][1] = (dp[i - 1][0] + dp[i - 1][1] * 9) % MOD;
+    }
+    int T, n;
+    cin >> T;
+    for (int ti = 0; ti < T; ++ti) {
+        cin >> n;
+        cout << dp[n][0] << endl;
+    }
 }

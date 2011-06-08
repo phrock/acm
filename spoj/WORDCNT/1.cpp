@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,32 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+template<class T> vector<T> split(const string& s, const string& delim = " ") {
+    vector<string> aux;
+    string t;
+    for (int i = 0; i != (int)(s).size(); ++i)
+        if (delim.find(s[i]) != string::npos) { if (!t.empty()) { aux.push_back(t); t = ""; } }
+        else t += s[i];
+    if (!t.empty()) aux.push_back(t);
+    vector<T> res;
+    for (int i = 0; i < (int)(aux).size(); ++i)
+        res.push_back(*({stringstream ss; ss << (aux[i]); static T _; ss >> _; &_;}));
+    return res;
+}
 
 int main()
 {
-    
+    int T;
+    cin >> T;
+    string s;
+    getline(cin, s);
+    for (int ti = 0; ti < T; ++ti) {
+        getline(cin, s);
+        vector<string> v = split<string>(s);
+        int pre = 0, cnt = 0, res = 0;
+        for (int i = 0; i < (int)(v).size(); ++i)
+            if ((int)(v[i]).size() == pre) ++cnt, res = max(res, cnt);
+            else cnt = 1, pre = (int)(v[i]).size(), res = max(res, cnt);
+        cout << res << endl;
+    }
 }

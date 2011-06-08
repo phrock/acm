@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -38,5 +38,10 @@ using namespace std;
 
 int main()
 {
-    
+    int a, b, c;
+    while (cin >> a >> b >> c && (a || b || c)) {
+        if (a + c == b * 2 && a != b)
+            cout << "AP " << 2 * c - b << endl;
+        else cout << "GP " << c * c / b << endl;
+    }
 }

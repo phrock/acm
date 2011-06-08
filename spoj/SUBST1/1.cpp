@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,28 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+struct trie {
+    trie *next[52];
+};
+
+trie * init_trie()
+{
+    trie *node = (trie *)malloc(sizeof(trie));
+    for (int i = 0; i < 52; ++i)
+        node->next[i] = NULL;
+
+    return node;
+}
+
+long long res
 
 int main()
 {
-    
+    int T;
+    cin >> T;
+    for (int ti = 0; ti < T; ++ti) {
+        string s;
+        cin >> s;
+        cout << func(s) << endl;
+    }
 }

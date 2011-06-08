@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -38,5 +38,16 @@ using namespace std;
 
 int main()
 {
-    
+    int a, b;
+    while (cin >> a >> b && a != -1) {
+        if (a > b) swap(a, b);
+        if (!a) { cout << b << endl; continue; }
+        int res = INT_MAX;
+        for (int i = 1; i <= a; ++i) {
+            int x = (a + (i - 1)) / i;
+            int y = (b + i) / (i + 1);
+            res = min(res, max(x, y));
+        }
+        cout << res << endl;
+    }
 }

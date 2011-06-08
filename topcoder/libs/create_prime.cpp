@@ -5,8 +5,7 @@ int prime_cnt;
 
 void create_prime()
 {
-    is_prime.reset();
-    is_prime.flip();
+    is_prime.set();
     is_prime[0] = is_prime[1] = 0;
     for (long long i = 2; i * i < MAX; ++i)
         if (is_prime[i])

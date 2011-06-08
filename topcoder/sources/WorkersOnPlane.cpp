@@ -22,29 +22,32 @@
 #include <vector>
 using namespace std;
 
-class Matching
+class WorkersOnPlane
 { 
 public: 
-    vector <string> findMatch(vector <string> first, vector <string> second);
+    int howMany(vector <string> field, int K);
     
 // BEGIN CUT HERE
 	public:
 	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); }
 	private:
 	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
-	void verify_case(int Case, const vector <string> &Expected, const vector <string> &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: " << print_array(Expected) << endl; cerr << "\tReceived: " << print_array(Received) << endl; } }
-	void test_case_0() { string Arr0[] = {"DIAMOND","BLUE","SOLID","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"DIAMOND","GREEN","SOLID","TWO"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "DIAMOND",  "RED",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(0, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_1() { string Arr0[] = {"CIRCLE","GREEN","EMPTY","TWO"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"DIAMOND","BLUE","STRIPED","ONE"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "SQUIGGLE",  "RED",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(1, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_2() { string Arr0[] = {"DIAMOND","RED","SOLID","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"SQUIGGLE","BLUE","SOLID","TWO"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "CIRCLE",  "GREEN",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(2, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_3() { string Arr0[] = {"SQUIGGLE","RED","STRIPED","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"SQUIGGLE","RED","STRIPED","ONE"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "SQUIGGLE",  "RED",  "STRIPED",  "ONE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(3, Arg2, findMatch(Arg0, Arg1)); }
+	void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
+	void test_case_0() { string Arr0[] = { "G..X",
+  "..XS",
+  "W..." }; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 5; int Arg2 = 1; verify_case(0, Arg2, howMany(Arg0, Arg1)); }
+	void test_case_1() { string Arr0[] = { "GG..",
+  "....",
+  "..W.",
+  "..W.",
+  "SS.." }; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 4; int Arg2 = 2; verify_case(1, Arg2, howMany(Arg0, Arg1)); }
+	void test_case_2() { string Arr0[] = { "GG..",
+  "XX..",
+  "..W.",
+  "..W.",
+  "SS.." }; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 10; int Arg2 = 1; verify_case(2, Arg2, howMany(Arg0, Arg1)); }
+	void test_case_3() { string Arr0[] = {"G.XXX.S",
+ "G..WW.S"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 11; int Arg2 = 0; verify_case(3, Arg2, howMany(Arg0, Arg1)); }
 
 // END CUT HERE
  
@@ -59,7 +62,7 @@ template<class T> inline void print2(T A[], int n, int m) { cout<<"{"<<endl; for
 
 int main()
 {
-    Matching ___test; 
+    WorkersOnPlane ___test; 
     ___test.run_test(-1); 
 } 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,8 +77,7 @@ int main()
  *                                                                             *
  ******************************************************************************/
 
-vector <string> Matching :: findMatch(vector <string> first, vector <string> second)
+int WorkersOnPlane :: howMany(vector <string> field, int K)
 {
-    vector<string> res;
-    return res;
+    
 }

@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,22 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
-
 int main()
 {
-    
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    string res;
+    for (int i = 0; i < n; ++i) {
+        int tab[] = {1, 1, 1, 1};
+        tab[s[2 * i] - 'A'] = tab[s[2 * i + 1] - 'A'] = 0;
+        string aux;
+        for (int j = 0; j < 4; ++j)
+            if (tab[j]) aux += 'A' + j;
+        if (i && aux[0] == res[(int)(res).size() - 1])
+            swap(aux[0], aux[1]);
+        res += aux;
+    }
+    cout << res << endl;
 }

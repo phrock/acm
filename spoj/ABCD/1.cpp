@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,35 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+char color[4] = {'A', 'B', 'C', 'D'};
+int cnt[4];
+
+void dfs(int cur, int n, string &res, const string &s)
+{
+    if (cur == n) {
+        cout << res << endl;
+        exit(0);
+    }
+    for (int i = 0; i < 4; ++i) {
+        if (!cnt[i] || color[i] == s[cur] || (cur && color[i] == res[cur - 1]))
+            continue;
+        --cnt[i];
+        res[cur] = color[i];
+        dfs(cur + 1, n, res, s);
+        ++cnt[i];
+    }
+}
 
 int main()
 {
-    
+    int n;
+    cin >> n;
+    for (int i = 0; i < 4; ++i)
+        cnt[i] = n;
+    string s;
+    cin >> s;
+    for (int i = 0; i < (int)(s).size(); ++i)
+        --cnt[s[i] - 'A'];
+    string res(2 * n, ' ');
+    dfs(0, 2 * n, res, s);
 }

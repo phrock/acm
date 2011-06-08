@@ -23,7 +23,7 @@
 using namespace std;
 
 #ifdef DEBUG
-#include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
+#include "/home/rock/program/acm/topcoder/libs/debug.cpp"
 #endif
 
 /*******************************************************************************
@@ -35,8 +35,29 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+vector<int> all_phi(int n)
+{
+    vector<int> phi(n+1);
+    phi[1] = 1;
+    for (int i = 2; i <= n; ++i) {
+	if (!phi[i]) {          // phi[i] is prime
+	    for (int j = i; j <= n; j += i) {
+		if (!phi[j]) phi[j] = j;
+		phi[j] = phi[j] / i * (i - 1);
+	    }
+	}
+    }
+    return phi;
+}
 
 int main()
 {
-    
+    vector<int> v = all_phi(1000005);
+    int T;
+    cin >> T;
+    for (int ti = 0; ti < T; ++ti) {
+        int x;
+        cin >> x;
+        cout << v[x] << endl;
+    }
 }

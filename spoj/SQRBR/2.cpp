@@ -35,8 +35,33 @@ using namespace std;
  *                                                                             *
  ******************************************************************************/
 
+int a[50];
+long long dp[50][50];
 
 int main()
 {
-    
+    int T;
+    cin >> T;
+    for (int ti = 0; ti < T; ++ti) {
+        memset(a, 0, sizeof(a));
+        memset(dp, 0, sizeof(dp));
+        int n, k, x;
+        cin >> n >> k;
+        for (int i = 0; i < k; ++i) {
+            cin >> x;
+            a[x] = 1;
+        }
+        for (int i = 2; i <= 2 * n; ++i)
+            if (!a[i]) dp[i - 1][i] = 1;
+        for (int i = 1; i <= 2 * n + 1; ++i)
+            dp[i][i - 1] = 1;
+        for (int len = 4; len <= 2 * n; len += 2)
+            for (int i = 1; i + len - 1 <= 2 * n; ++i) {
+                int j = i + len - 1;
+                if (a[j]) continue;
+                for (int k = i + 1; k <= j; ++k)
+                    if (!a[k]) dp[i][j] += dp[i + 1][k - 1] * dp[k + 1][j];
+            }
+        cout << dp[1][2 * n] << endl;
+    }
 }

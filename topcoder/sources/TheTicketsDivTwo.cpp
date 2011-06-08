@@ -22,29 +22,21 @@
 #include <vector>
 using namespace std;
 
-class Matching
+class TheTicketsDivTwo
 { 
 public: 
-    vector <string> findMatch(vector <string> first, vector <string> second);
+    double find(int n, int m, int k);
     
 // BEGIN CUT HERE
 	public:
 	void run_test(int Case) { if ((Case == -1) || (Case == 0)) test_case_0(); if ((Case == -1) || (Case == 1)) test_case_1(); if ((Case == -1) || (Case == 2)) test_case_2(); if ((Case == -1) || (Case == 3)) test_case_3(); }
 	private:
 	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
-	void verify_case(int Case, const vector <string> &Expected, const vector <string> &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: " << print_array(Expected) << endl; cerr << "\tReceived: " << print_array(Received) << endl; } }
-	void test_case_0() { string Arr0[] = {"DIAMOND","BLUE","SOLID","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"DIAMOND","GREEN","SOLID","TWO"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "DIAMOND",  "RED",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(0, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_1() { string Arr0[] = {"CIRCLE","GREEN","EMPTY","TWO"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"DIAMOND","BLUE","STRIPED","ONE"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "SQUIGGLE",  "RED",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(1, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_2() { string Arr0[] = {"DIAMOND","RED","SOLID","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"SQUIGGLE","BLUE","SOLID","TWO"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "CIRCLE",  "GREEN",  "SOLID",  "THREE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(2, Arg2, findMatch(Arg0, Arg1)); }
-	void test_case_3() { string Arr0[] = {"SQUIGGLE","RED","STRIPED","ONE"}
-; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); string Arr1[] = {"SQUIGGLE","RED","STRIPED","ONE"}
-; vector <string> Arg1(Arr1, Arr1 + (sizeof(Arr1) / sizeof(Arr1[0]))); string Arr2[] = { "SQUIGGLE",  "RED",  "STRIPED",  "ONE" }; vector <string> Arg2(Arr2, Arr2 + (sizeof(Arr2) / sizeof(Arr2[0]))); verify_case(3, Arg2, findMatch(Arg0, Arg1)); }
+	void verify_case(int Case, const double &Expected, const double &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
+	void test_case_0() { int Arg0 = 2; int Arg1 = 1; int Arg2 = 1; double Arg3 = 0.16666666666666666; verify_case(0, Arg3, find(Arg0, Arg1, Arg2)); }
+	void test_case_1() { int Arg0 = 2; int Arg1 = 1; int Arg2 = 2; double Arg3 = 0.5833333333333334; verify_case(1, Arg3, find(Arg0, Arg1, Arg2)); }
+	void test_case_2() { int Arg0 = 7; int Arg1 = 7; int Arg2 = 4; double Arg3 = 0.0; verify_case(2, Arg3, find(Arg0, Arg1, Arg2)); }
+	void test_case_3() { int Arg0 = 4; int Arg1 = 2; int Arg2 = 10; double Arg3 = 0.25264033564814814; verify_case(3, Arg3, find(Arg0, Arg1, Arg2)); }
 
 // END CUT HERE
  
@@ -59,7 +51,7 @@ template<class T> inline void print2(T A[], int n, int m) { cout<<"{"<<endl; for
 
 int main()
 {
-    Matching ___test; 
+    TheTicketsDivTwo ___test; 
     ___test.run_test(-1); 
 } 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,8 +66,30 @@ int main()
  *                                                                             *
  ******************************************************************************/
 
-vector <string> Matching :: findMatch(vector <string> first, vector <string> second)
+map<vector<int>, double> mp;
+
+double func(int n, int m, int k)
 {
-    vector<string> res;
+    if (n == 1) return 1;
+    if (m > k + 1) return 0;
+    if (k == 0) {
+        if (m == 1) return 1;
+        else return 0;
+    }
+    if (m == 1) {
+        return 1. / 6 + 0.5 * func(n, n, k - 1);
+    }
+        
+    vector<int> v(3);
+    v[0] = n, v[1] = m, v[2] = k;
+    if (((mp).find(v) != (mp).end())) return mp[v];
+    double res = 0.5 * func(n, m -1, k - 1) + 1. / 3 * func(n - 1, m - 1, k - 1);
+    mp[v] = res;
     return res;
+}
+
+double TheTicketsDivTwo :: find(int n, int m, int k)
+{
+    mp.clear();
+    return func(n, m, k);
 }
