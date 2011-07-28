@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: sprime
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("sprime.in");
+ofstream fout("sprime.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -46,6 +46,27 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+bool is_prime(int n)
+{
+    if (n < 2) return false;
+    for (int i = 2; i * i <= n; ++i)
+        if (n % i == 0)
+            return false;
+    return true;
+}
+
+void dfs(int n, int cur, int prime)
+{
+    if (cur == n) {
+        cout << prime << endl;
+    } else {
+        for (int i = 1; i <= 9; i += 2) {
+            int aux = prime * 10 + i;
+            if (is_prime(aux))
+                dfs(n, cur + 1, aux);
+        }
+    }
+}
 
 int main()
 {
@@ -55,7 +76,10 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    dfs(n, 1, 2);
+    dfs(n, 0, 0);
 }

@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: gift1
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("gift1.in");
+ofstream fout("gift1.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -55,7 +55,25 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    vector<string> name(n);
+    map<string, int> res;
+    for (int i = 0; i < n; ++i)
+        cin >> name[i];
+    for (int i = 0; i < n; ++i) {
+        string s;
+        int initial, k;
+        cin >> s >> initial >> k;
+        for (int j = 0; j < k; ++j) {
+            string tmp;
+            cin >> tmp;
+            res[tmp] += initial / k;
+            res[s] -= initial / k;
+        }
+    }
+    for (int i = 0; i < n; ++i)
+        cout << name[i] << " " << res[name[i]] << endl;
 }

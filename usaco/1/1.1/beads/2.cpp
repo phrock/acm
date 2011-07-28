@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: beads
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("beads.in");
+ofstream fout("beads.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -55,7 +55,42 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+
+    int res = 0;
+    for (int i = 0; i < n; ++i) {
+        rotate(s.begin(), s.begin() + 1, s.end());
+        int cnt = 0;
+        char c = s[0];
+        for (int j = 0; j < (int)(s).size(); ++j) {
+            if (c == 'w') {
+                c = s[j];
+                ++cnt;
+            } else {
+                if (s[j] != 'w' && s[j] != c)
+                    break;
+                else
+                    ++cnt;
+            }
+        }
+        c = s[(int)(s).size() - 1];
+        for (int j = (int)(s).size() - 1; j >= 0; --j) {
+            if (c == 'w') {
+                c = s[j];
+                ++cnt;
+            } else {
+                if (s[j] != 'w' && s[j] != c)
+                    break;
+                else
+                    ++cnt;
+            }
+        }
+        res = max(res, min(cnt, n));
+    }
+    cout << res << endl;
 }

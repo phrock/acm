@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf=cin.rdbuf();
-streambuf *cout_buf=cout.rdbuf();
-
 /*******************************************************************************
  *                                                                             *
  *                  To see the world in a grain of sand,                       *
@@ -49,13 +38,29 @@ streambuf *cout_buf=cout.rdbuf();
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    ////////////////////////////////////////////////////////////////////////////
-
-  
+    long long x;
+    cin >> x;
+    long long res = LLONG_MAX;
+    for (int i = 1; i < (1 << 16); ++i) {
+        long long aux = 0, k = 1;
+        int n = __builtin_popcount(i), m = __builtin_clz(0) - __builtin_clz(i) - n;
+        if (n < m) continue;
+        int tmp = i;
+        while (tmp) {
+            if (tmp % 2) {
+                aux += k * 7;
+            } else {
+                aux += k * 4;
+            }
+            k *= 10;
+            tmp >>= 1;
+        }
+        for (int j = 0; j < n - m; ++j) {
+            aux += k * 4;
+            k *= 10;
+        }
+        if (aux >= x)
+            res = min(res, aux);
+    }
+    cout << res << endl;
 }

@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: ariprog
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("ariprog.in");
+ofstream fout("ariprog.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -46,6 +46,7 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+int square[255 * 255 * 2];
 
 int main()
 {
@@ -55,7 +56,35 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int n, m;
+    cin >> n >> m;
+    for (int i = 0; i <= m; ++i)
+        for (int j = i; j <= m; ++j)
+            square[i * i + j * j] = 1;
+    #ifdef DEBUG
+    print(square, m * m + 1);    
+    #endif
+    int upper = m * m * 2;
+    vector< pair<int, int> > res;
+    for (int b = 1; b <= upper; ++b)
+        for (int a = 0; a < upper; ++a) {
+            if (a + b * (n - 1) > upper)
+                break;
+            bool ok = true;
+            for (int i = 0; i < n; ++i)
+                if (!square[a + i * b]) {
+                    ok = false;
+                    break;
+                }
+            if (ok)
+                res.push_back(make_pair(a, b));
+        }
+    if (res.empty()) {
+        cout << "NONE" << endl;
+    } else {
+        for (int i = 0; i < (int)(res).size(); ++i)
+            cout << res[i].first << " " << res[i].second << endl;
+    }
 }

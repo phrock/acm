@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: milk
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("milk.in");
+ofstream fout("milk.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -55,7 +55,19 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int require, n;
+    cin >> require >> n;
+    vector< pair<int, int> > v(n);
+    for (int i = 0; i < n; ++i)
+        cin >> v[i].first >> v[i].second;
+    sort((v).begin(), (v).end());
+    int res = 0;
+    for (int i = 0; i < (int)(v).size(); ++i) {
+        int aux = min(require, v[i].second);
+        res += aux * v[i].first;
+        require -= aux;
+    }
+    cout << res << endl;
 }

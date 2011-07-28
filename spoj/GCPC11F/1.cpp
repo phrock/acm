@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf=cin.rdbuf();
-streambuf *cout_buf=cout.rdbuf();
-
 /*******************************************************************************
  *                                                                             *
  *                  To see the world in a grain of sand,                       *
@@ -49,13 +38,39 @@ streambuf *cout_buf=cout.rdbuf();
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    ////////////////////////////////////////////////////////////////////////////
-
-  
+    int ts;
+    cin >> ts;
+    string s;
+    getline(cin, s);
+    for (int ti = 0; ti < ts; ++ti) {
+        getline(cin, s);
+        map<char, int> mp;
+        char c;
+        int m = 0, cnt = 0;
+        for (int i = 0; i < (int)(s).size(); ++i) {
+            if (!isupper(s[i])) continue;
+            ++mp[s[i]];
+            if (mp[s[i]] > m) {
+                m = mp[s[i]];
+                c = s[i];
+                cnt = 1;
+            } else if (mp[s[i]] == m) {
+                ++cnt;
+            }
+        }
+        if (cnt > 1) {
+            cout << "NOT POSSIBLE" << endl;
+            continue;
+        }
+        // cout << c << " ** " << cnt << endl;
+        int d = ((c - 'A') + 26 - ('E' - 'A')) % 26;
+        // cout << min(d, 26 - d) << " ";
+        string res;
+        for (int i = 0; i < (int)(s).size(); ++i)
+            if (isupper(s[i])) 
+                res += (s[i] - 'A' + 26 - d) % 26 + 'A';
+            else
+                res += s[i];
+        cout << d << " " << res << endl;
+    }
 }

@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: ride
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("ride.in");
+ofstream fout("ride.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -55,7 +55,14 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    string a, b;
+    cin >> a >> b;
+    int x = 1, y = 1;
+    for (int i = 0; i < (int)(a).size(); ++i)
+        x = x * (a[i] - 'A' + 1) % 47;
+    for (int i = 0; i < (int)(b).size(); ++i)
+        y = y * (b[i] - 'A' + 1) % 47;
+    cout << (x == y ? "GO" : "STAY") << endl;
 }

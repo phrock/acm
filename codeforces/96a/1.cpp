@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf=cin.rdbuf();
-streambuf *cout_buf=cout.rdbuf();
-
 /*******************************************************************************
  *                                                                             *
  *                  To see the world in a grain of sand,                       *
@@ -46,16 +35,30 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+template<class T> vector<T> split(const string& s, const string& delim = " ") {
+    vector<string> aux;
+    string t;
+    for (int i = 0; i != (int)(s).size(); ++i)
+        if (delim.find(s[i]) != string::npos) { if (!t.empty()) { aux.push_back(t); t = ""; } }
+        else t += s[i];
+    if (!t.empty()) aux.push_back(t);
+    vector<T> res;
+    for (int i = 0; i < (int)(aux).size(); ++i)
+        res.push_back(*({stringstream ss; ss << (aux[i]); static T _; ss >> _; &_;}));
+    return res;
+}
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    ////////////////////////////////////////////////////////////////////////////
-
-  
+    string s;
+    cin >> s;
+    bool ok = false;
+    for (int i = 0; i < 2; ++i) {
+        string c = i ? "1" : "0";
+        vector<string> v = split<string>(s, c);
+        for (int i = 0; i < (int)(v).size(); ++i)
+            if ((int)(v[i]).size() >= 7)
+                ok = true;
+    }
+    cout << (ok ? "YES" : "NO") << endl;
 }

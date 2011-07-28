@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: numtri
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("numtri.in");
+ofstream fout("numtri.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -46,6 +46,8 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+int a[1005][1005];
+int dp[1005][1005];
 
 int main()
 {
@@ -55,7 +57,14 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; ++i)
+        for (int j = 1; j <= i; ++j) {
+            cin >> a[i][j];
+            dp[i][j] = max(dp[i - 1][j - 1], dp[i - 1][j]) + a[i][j];
+        }
+    cout << *max_element(dp[n], dp[n] + n + 1) << endl;
 }

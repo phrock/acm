@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: namenum
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("namenum.in");
+ofstream fout("namenum.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -55,7 +55,32 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    map<char, char> mp;
+    for (char c = 'A'; c <= 'P'; ++c)
+        mp[c] = '2' + (c - 'A') / 3;
+    for (char c = 'Q'; c <= 'Y'; ++c)
+        mp[c] = '7' + (c - 'Q') / 3;
+    
+    string num;
+    cin >> num;
+    ifstream dict("dict.txt");
+    string s;
+    bool ok = false;
+    while (dict >> s) {
+        string aux;
+        for (int i = 0; i < (int)(s).size(); ++i) {
+            if (s[i] == 'Q' || s[i] == 'Z') {
+                aux.clear();
+                break;
+            }
+            aux += mp[s[i]];
+        }
+        if (aux == num) {
+            cout << s << endl;
+            ok = true;
+        }
+    }
+    if (!ok) cout << "NONE" << endl;
 }

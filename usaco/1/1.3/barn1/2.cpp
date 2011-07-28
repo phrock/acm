@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: barn1
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("barn1.in");
+ofstream fout("barn1.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -46,6 +46,18 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+template<class T> vector<T> split(const string& s, const string& delim = " ") {
+    vector<string> aux;
+    string t;
+    for (int i = 0; i != (int)(s).size(); ++i)
+        if (delim.find(s[i]) != string::npos) { if (!t.empty()) { aux.push_back(t); t = ""; } }
+        else t += s[i];
+    if (!t.empty()) aux.push_back(t);
+    vector<T> res;
+    for (int i = 0; i < (int)(aux).size(); ++i)
+        res.push_back(*({stringstream ss; ss << (aux[i]); static T _; ss >> _; &_;}));
+    return res;
+}
 
 int main()
 {
@@ -55,7 +67,29 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int m, k, c;
+    cin >> m >> k >> c;
+    string s(k, '0');
+    for (int i = 0; i < c; ++i) {
+        int x;
+        cin >> x;
+        s[x - 1] = '1';
+    }
+    while (s[0] == '0')
+        s = s.substr(1);
+    while (s[(int)(s).size() - 1] == '0')
+        s = s.substr(0, (int)(s).size() - 1);
+    int res = (int)(s).size();
+    vector<string> v = split<string>(s, "1");
+    sort((v).begin(), (v).end(), greater<string>());
+    #ifdef DEBUG
+    cout << s << endl;
+    cout << res << endl;
+    print(v);
+    #endif
+    for (int i = 0; i < min((int)(v).size(), m - 1); ++i)
+        res -= (int)(v[i]).size();
+    cout << res << endl;
 }

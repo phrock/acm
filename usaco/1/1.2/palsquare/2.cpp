@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: palsquare
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("palsquare.in");
+ofstream fout("palsquare.out");
 streambuf *cin_buf=cin.rdbuf();
 streambuf *cout_buf=cout.rdbuf();
 
@@ -46,6 +46,19 @@ streambuf *cout_buf=cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+string func(int n, int base)
+{
+    string res;
+    while (n) {
+        int x = n % base;
+        n /= base;
+        if (x < 10)
+            res = char('0' + x) + res;
+        else
+            res = char('A' + x - 10) + res;
+    }
+    return res;
+}
 
 int main()
 {
@@ -55,7 +68,14 @@ int main()
     cin.rdbuf(cin_buf);
     cout.rdbuf(cout_buf);
     #endif
-    ////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////
 
-  
+    int base;
+    cin >> base;
+    for (int i = 1; i <= 300; ++i) {
+        string s = func(i * i, base), s2 = s;
+        reverse((s2).begin(), (s2).end());
+        if (s == s2)
+            cout << func(i, base) << " " << s << endl;
+    }
 }
