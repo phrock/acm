@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: money
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("money.in");
+ofstream fout("money.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -46,6 +46,8 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+int a[30];
+long long dp[10005];
 
 int main()
 {
@@ -57,5 +59,13 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    int v, n;
+    cin >> v >> n;
+    for (int i = 0; i < v; ++i)
+        cin >> a[i];
+    dp[0] = 1;
+    for (int i = 0; i < v; ++i)
+        for (int j = a[i]; j <= n; ++j)
+            dp[j] += dp[j - a[i]];
+    cout << dp[n] << endl;
 }

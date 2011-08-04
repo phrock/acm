@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: concom
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("concom.in");
+ofstream fout("concom.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -46,6 +46,10 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+const int MAX = 100;
+int control[MAX + 5][MAX + 5];
+int own[MAX + 5][MAX + 5];
+int sum[MAX + 5][MAX + 5];
 
 int main()
 {
@@ -57,5 +61,31 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        int x, y, k;
+        cin >> x >> y >> k;
+        own[x][y] = k;
+    }
+    queue<pair<int, int> > q;
+    for (int i = 1; i <= MAX; ++i)
+        q.push(make_pair(i, i));
+    while (!q.empty()) {
+        pair<int, int> ft = q.front();
+        q.pop();
+        int x = ft.first, y = ft.second;
+        if (control[x][y]) continue;
+        control[x][y] = 1;
+        for (int i = 1; i <= MAX; ++i)
+            if (!control[x][i]) {
+                sum[x][i] += own[y][i];
+                if (sum[x][i] > 50)
+                    q.push(make_pair(x, i));
+            }
+    }
+    for (int i = 1; i <= MAX; ++i)
+        for (int j = 1; j <= MAX; ++j)
+            if (i != j && control[i][j])
+                cout << i << " " << j << endl;
 }

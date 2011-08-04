@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: nocows
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("nocows.in");
+ofstream fout("nocows.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -46,6 +46,8 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+const int MOD = 9901;
+int dp[200][100];
 
 int main()
 {
@@ -57,5 +59,13 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    int n, k;
+    cin >> n >> k;
+    for (int i = 1; i <= k; ++i)
+        dp[1][i] = 1;
+    for (int i = 3; i <= n; i += 2)
+        for (int j = 1; j <= k; ++j)
+            for (int left = 1; left <= i - 2; left += 2)
+                dp[i][j] = (dp[i][j] + dp[left][j - 1] * dp[i - 1 - left][j - 1]) % MOD;
+    cout << (dp[n][k] - dp[n][k - 1] + MOD) % MOD << endl;
 }

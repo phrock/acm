@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: prefix
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("prefix.in");
+ofstream fout("prefix.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -57,5 +57,30 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    vector<string> v;
+    string s;
+    while (cin >> s && s != ".")
+        v.push_back(s);
+    string tmp;
+    s.clear();
+    while (cin >> tmp)
+        s += tmp;
+    vector<int> dp((int)(s).size() + 1);
+    dp[0] = 1;
+    for (int i = 0; i < (int)(dp).size(); ++i) {
+        if (dp[i]) {
+            for (int j = 0; j < (int)(v).size(); ++j) {
+                int m = (int)(v[j]).size();
+                if (i + m < (int)(dp).size() && v[j] == s.substr(i, m))
+                    dp[i + m] = 1;
+            }
+        }
+    }
+    int res = 0;
+    for (int i = (int)(dp).size() - 1; i >= 0; --i)
+        if (dp[i]) {
+            res = i;
+            break;
+        }
+    cout << res << endl;
 }

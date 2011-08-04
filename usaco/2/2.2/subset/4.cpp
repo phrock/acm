@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: subset
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("subset.in");
+ofstream fout("subset.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -46,6 +46,7 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+long long dp[1000];
 
 int main()
 {
@@ -57,5 +58,16 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    int n;
+    cin >> n;
+    int sum = n * (n + 1) / 2;
+    if (sum % 2) {
+        cout << 0 << endl;
+        return 0;
+    }
+    dp[0] = 1;
+    for (int i = 1; i <= n; ++i)
+        for (int j = sum; j >= i; --j)
+            dp[j] += dp[j - i];
+    cout << dp[sum / 2] / 2 << endl;
 }

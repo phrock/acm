@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: hamming
 */
 
 #include <cctype>
@@ -32,10 +32,10 @@ using namespace std;
 #include "/home/Aphrodite/program/acm/topcoder/libs/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
+ifstream fin("hamming.in");
+ofstream fout("hamming.out");
+streambuf *cin_buf=cin.rdbuf();
+streambuf *cout_buf=cout.rdbuf();
 
 /*******************************************************************************
  *                                                                             *
@@ -46,6 +46,32 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                             *
  ******************************************************************************/
 
+int dist[1024][1024];
+int N, B, D;
+int MAX;
+bool ok;
+int res[100];
+
+void dfs(int cur, int val)
+{
+    if (ok) return;
+    if (cur == N) {
+        ok = true;
+        return;
+    }
+
+    bool check = true;
+    for (int i = 0; i < cur; ++i)
+        if (dist[res[i]][val] < D) {
+            check = false;
+            break;
+        }
+    if (check) {
+        res[cur] = val;
+        for (int i = val + 1; i <= MAX; ++i) 
+        if (!ok) dfs(cur + 1, i);
+    }
+}
 
 int main()
 {
@@ -57,5 +83,18 @@ int main()
     #endif
     ////////////////////////////////////////////////////////////////////////////
 
-  
+    cin >> N >> B >> D;
+    MAX = (1 << (B + 1)) - 1;
+    for (int i = 0; i <= MAX; ++i)
+        for (int j = i + 1; j <= MAX; ++j)
+            dist[i][j] = dist[j][i] = __builtin_popcount(i ^ j);
+    ok = false;
+    for (int i = 0; i <= MAX; ++i)
+        if (!ok) dfs(0, i);
+    if (!ok) return 0;
+    for (int i = 0; i < N; ++i) {
+        if (i % 10) cout << " ";
+        cout << res[i];
+        if (((i + 1) % 10 == 0) || (i + 1 == N)) cout << endl;
+    }
 }
