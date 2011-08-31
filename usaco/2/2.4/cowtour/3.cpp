@@ -68,7 +68,7 @@ int main()
     for (int j=1;j<=n;j++)
       if ((map[i][j]!=1e20)&&(map[i][j]>mmax[i]))
 	mmax[i]=map[i][j];
- 
+
   for (int i=1;i<=n;i++)
     for (int j=1;j<=n;j++)
       if (map[i][j]==1e20)
