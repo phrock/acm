@@ -1,0 +1,25 @@
+<html><body bgcolor="#999999" text="#000000"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+John and Brus have an interest in team sports tournaments.
+They are currently investigating the intermediate standings of a tournament.
+They don't know which games have been played so far.
+They only know that the tournament is played using the following rules:
+</p>
+
+<p>
+Each game is played between two teams and results in either a victory for one team or a draw.
+If a team wins a game, it gains two points and its opponent gains no points.
+In case of a draw, each team gains one point.
+The score of a team is the sum of all the points it has gained from all its games.
+There are no restrictions on which teams can play against each other, and each pair of teams can play against each other any number of times (possibly zero).
+</p>
+
+<p>
+You are given a vector &lt;int&gt; <b>points</b> representing the intermediate standings of the tournament.
+The i-th element of <b>points</b> is the score of the i-th team.
+Return the minimum number of games that could have been played to achieve those standings.
+If <b>points</b> doesn't represent a valid state, return -1 instead.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TheTournamentDivTwo</td></tr><tr><td>Method:</td><td>find</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int find(vector &lt;int&gt; points)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td>&#160;&#160;&#160;&#160;</td></tr><tr><td></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>points</b> will contain between 2 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>points</b> will be between 0 and 1,000,000, inclusive.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{10, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">Here the first team has five wins or four wins and two draws.
+The second and the third team each has one draw.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{1, 1, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: -1</pre></td></tr><tr><td><table><tr><td colspan="2">These standings are impossible.
+For each of the three teams to have one point, each one must have played in a game that resulted in a draw.
+There is no way for three teams to have each played in exactly one game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{0, 0, 0, 0, 0, 0, 0}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 0</pre></td></tr><tr><td><table><tr><td colspan="2">There are no points, which means no games have been played yet.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{13, 8, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 14</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

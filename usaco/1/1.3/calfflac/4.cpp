@@ -90,7 +90,7 @@ int main()
                 a = i - aux + 1;
                 b = i + aux;
             }
-            while (a >=0 && b < (int)(s).size()) {
+            while (a >= 0 && b < (int)(s).size()) {
                 int length = b - a + 1;
                 if (is_palindrome(s, a, b)) {
                     if ((length > max_length) ||

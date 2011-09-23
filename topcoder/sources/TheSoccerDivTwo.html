@@ -1,0 +1,35 @@
+<html><body bgcolor="#999999" text="#000000"><table><tr><td colspan="2"><h3>Problem Statement</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><p>
+John and Brus have an interest in team sports tournaments.
+They are investigating a soccer tournament that is currently in progress.
+Soccer is a team sport played between two teams of eleven players using a spherical ball.
+It is the most popular football variant worldwide, and is widely considered to be the most popular sport in the world.
+</p>
+
+<p>
+In this tournament, each game results in either a victory for one team or a draw.
+If a team wins a game, it gains three points and its opponent gains no points.
+In case of a draw, each team gains one point.
+The score of a team is the sum of all the points it has gained from all its games.
+Each pair of teams can play against each other any number of times.
+</p>
+
+<p>
+You are given a vector &lt;int&gt; <b>points</b> representing the current standings in the tournament.
+The i-th element of <b>points</b> is the score of the i-th team.
+You can assume that the <b>points</b> represent a valid state, i.e., intermediate standings that can be achieved in a tournament according to the rules described above.
+</p>
+
+<p>
+Each team will play exactly one more game in the tournament, but it is not known what the matchups will be.
+After the tournament is over, the teams will be ranked by score.
+1st place will go to the team with the highest score, 2nd place will go to the team with the second highest score, and so on.
+If two teams have the same score, the team with the lower number will place higher.
+For example, if team 0 and team 3 each have the highest score of 100 points, then team 0 will place 1st and team 3 will place 2nd.
+</p>
+
+<p>
+John's favorite team is team 0, and he wants it to place as high as possible.
+Assuming that the remaining games can be scheduled arbitrarily and can end with any possible outcome, return the highest possible place for team 0 at the end of the tournament.
+</p>
+</td></tr><tr><td colspan="2"><h3>Definition</h3></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td>Class:</td><td>TheSoccerDivTwo</td></tr><tr><td>Method:</td><td>find</td></tr><tr><td>Parameters:</td><td>vector &lt;int&gt;</td></tr><tr><td>Returns:</td><td>int</td></tr><tr><td>Method signature:</td><td>int find(vector &lt;int&gt; points)</td></tr><tr><td colspan="2">(be sure your method is public)</td></tr></table></td></tr><tr><td>&#160;&#160;&#160;&#160;</td></tr><tr><td></td></tr><tr><td colspan="2"><h3>Constraints</h3></td></tr><tr><td align="center" valign="top">-</td><td><b>points</b> will contain between 2 and 50 elements, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>points</b> will contain an even number of elements.</td></tr><tr><td align="center" valign="top">-</td><td>Each element of <b>points</b> will be between 0 and 1,000,000, inclusive.</td></tr><tr><td align="center" valign="top">-</td><td><b>points</b> will represent a valid state.</td></tr><tr><td colspan="2"><h3>Examples</h3></td></tr><tr><td align="center" nowrap="true">0)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 1</pre></td></tr><tr><td><table><tr><td colspan="2">John's favorite team wins the only game.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">1)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{4, 7, 7, 7}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 2</pre></td></tr><tr><td><table><tr><td colspan="2">It's impossible for John's favorite team to be in first place after the remaining games.
+</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">2)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{5, 9, 11, 9, 10, 9}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 6</pre></td></tr><tr><td><table><tr><td colspan="2">John's favorite team has too few points here to rise above last place.</td></tr></table></td></tr></table></td></tr><tr><td align="center" nowrap="true">3)</td><td></td></tr><tr><td>&#160;&#160;&#160;&#160;</td><td><table><tr><td><table><tr><td><pre>{2, 1, 3, 7, 6, 5, 3, 4, 2, 6, 5, 1}</pre></td></tr></table></td></tr><tr><td><pre>Returns: 4</pre></td></tr><tr><td></td></tr></table></td></tr></table><p>This problem statement is the exclusive and proprietary property of TopCoder, Inc.  Any unauthorized use or reproduction of this information without the prior written consent of TopCoder, Inc. is strictly prohibited.  (c)2003, TopCoder, Inc.  All rights reserved.  </p></body></html>

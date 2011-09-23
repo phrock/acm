@@ -33,7 +33,7 @@ public:
 	private:
 	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
 	void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
-	void test_case_0() { string Arr0[] = {"101", "01"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 4; long long Arg2 = 2LL; long long Arg3 = 5LL; int Arg4 = 2; verify_case(0, Arg4, theCount(Arg0, Arg1, Arg2, Arg3)); }
+	void test_case_0() { string Arr0[] = {"1", "11", "111"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 0; long long Arg2 = 0LL; long long Arg3 = 0LL; int Arg4 = 2; verify_case(0, Arg4, theCount(Arg0, Arg1, Arg2, Arg3)); }
 	void test_case_1() { string Arr0[] = {"01", "10"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 5; long long Arg2 = 4LL; long long Arg3 = 5LL; int Arg4 = 1; verify_case(1, Arg4, theCount(Arg0, Arg1, Arg2, Arg3)); }
 	void test_case_2() { string Arr0[] = {"1", "11", "111"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 46; long long Arg2 = 10000LL; long long Arg3 = 11000LL; int Arg4 = 1001; verify_case(2, Arg4, theCount(Arg0, Arg1, Arg2, Arg3)); }
 	void test_case_3() { string Arr0[] = {"0", "00", "000"}; vector <string> Arg0(Arr0, Arr0 + (sizeof(Arr0) / sizeof(Arr0[0]))); int Arg1 = 46; long long Arg2 = 10000LL; long long Arg3 = 11000LL; int Arg4 = 0; verify_case(3, Arg4, theCount(Arg0, Arg1, Arg2, Arg3)); }
@@ -57,7 +57,8 @@ template<class T> inline void print2(T A[], int n, int m) { cout<<"{"<<endl; for
 int main()
 {
     MagicalGirlLevelThreeDivTwo ___test; 
-    ___test.run_test(-1); 
+    // ___test.run_test(-1); 
+    ___test.run_test(0); 
 } 
 ////////////////////////////////////////////////////////////////////////////////
 // END CUT HERE 
@@ -71,7 +72,44 @@ int main()
  *                                                                             *
  ******************************************************************************/
 
+
+char func(const vector<string> &first, const vector<long long> &len, int n, long long idx)
+{
+    if (n < (int)(first).size())
+        return first[n][idx];
+    int aux = n - 1;
+    while (idx >= len[aux]) {
+        idx = idx - len[aux];
+        aux -= (int)(first).size();
+    }
+    return func(first, len, aux, idx);
+}
+
 int MagicalGirlLevelThreeDivTwo :: theCount(vector <string> first, int n, long long lo, long long hi)
 {
-    
+    int k = (int)(first).size();
+    vector<long long> len(max(n + 1, k));
+    for (int i = 0; i < k; ++i)
+        len[i] = (int)(first[i].size());
+    #ifdef DEBUG
+    print(first);
+    print(len);    
+    #endif
+    for (int i = k; i <= n; ++i) {
+        int idx = i - 1;
+        while (idx >= 0) {
+            len[i] = len[i] + len[idx];
+            len[i] = min(len[i], hi + 1);
+            idx -= k;
+        }
+    }
+    #ifdef DEBUG
+    print(len);
+    #endif
+    int res = 0;
+    for (long long i = lo; i <= hi; ++i) {
+        if (func(first, len, n, i) == '1')
+            ++res;
+    }
+    return res;
 }
