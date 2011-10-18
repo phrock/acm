@@ -18,6 +18,7 @@
 #include <sstream>
 #include <stack>
 #include <string>
+#include <typeinfo>
 #include <utility>
 #include <vector>
 using namespace std;
