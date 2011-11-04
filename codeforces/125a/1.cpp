@@ -38,5 +38,8 @@ using namespace std;
 
 int main()
 {
-    
+    vector<int> v;
+    #ifdef DEBUG
+    print(v);
+    #endif
 }
