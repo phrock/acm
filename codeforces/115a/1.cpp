@@ -38,5 +38,24 @@ using namespace std;
 
 int main()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> v(n + 5);
+    for (int i = 1; i <= n; ++i) {
+        cin >> v[i];
+    }
+    int res = 1;
+    vector<int> p(n + 5);
+    for (int i = 1; i <= n; ++i) {
+        if (p[i]) continue;
+        p[i] = 1;
+        int aux = 1, x = i;
+        while (v[x] != -1) {
+            ++aux;
+            p[x] = 1;
+            x = v[x];
+        }
+        res = max(res, aux);
+    }
+    cout << res << endl;
 }

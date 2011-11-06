@@ -38,8 +38,10 @@ using namespace std;
 
 int main()
 {
-    vector<int> v;
-    #ifdef DEBUG
-    print(v);
-    #endif
+    int n;
+    cin >> n;
+    int inch = n / 3;
+    if (n % 3 == 2)
+        ++inch;
+    cout << inch / 12 << " " << inch % 12 << endl;
 }
