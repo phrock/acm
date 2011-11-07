@@ -65,10 +65,10 @@ int main()
     cout << n*n<<endl;
 
     while (true) {
-	cout << n << endl;
-	mpz_class m = 2*n*(n-1) + 1;
-	sq = sqrt(m);
-	if (sq*sq == m && sq%2 == 1) break;
-	n++;
+        cout << n << endl;
+        mpz_class m = 2*n*(n-1) + 1;
+        sq = sqrt(m);
+        if (sq*sq == m && sq%2 == 1) break;
+        n++;
     }
 }
