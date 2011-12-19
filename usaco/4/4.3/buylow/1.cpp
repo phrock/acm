@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: buylow
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("buylow.in");
+ofstream fout("buylow.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -57,5 +57,40 @@ int main()
     #endif
     /////////////////////////////////////////////////////////////////////////
 
-    
+    int n;
+    cin >> n;
+    vector<int> v(n + 1), dp(n + 1), cnt(n + 1);
+    v[0] = INT_MAX;
+    dp[0] = 0;
+    cnt[0] = 1;
+    for (int i = 1; i <= n; ++i)
+        cin >> v[i];
+    for (int i = 1; i <= n; ++i) {
+        int m = 0;
+        for (int j = 0; j < i; ++j) {
+            if (v[j] > v[i])
+                m = max(m, dp[j]);
+        }
+        dp[i] = m + 1;
+        set<int> st;
+        for (int j = 0; j < i; ++j)
+            if (v[j] > v[i] && dp[j] == m && !((st).find(v[j]) != (st).end())) {
+                cnt[i] += cnt[j];
+                st.insert(v[j]);
+            }
+    }
+
+    #ifdef DEBUG
+    print(dp);
+    print(cnt);
+    #endif
+    int res = *max_element((dp).begin(), (dp).end());
+    int res_cnt = 0;
+    set<int> st;
+    for (int i = 1; i <= n; ++i)
+        if (dp[i] == res && !((st).find(v[i]) != (st).end())) {
+            res_cnt += cnt[i];
+            st.insert(v[i]);
+        }
+    cout << res << " " << res_cnt << endl;
 }

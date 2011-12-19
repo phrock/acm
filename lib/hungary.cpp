@@ -21,7 +21,8 @@ int hungary()
     memset(match, -1, sizeof(match));
     for (int i = 1; i <= n1; ++i) {
 	memset(visited, 0, sizeof(visited));
-	if (hungaryHelper(i)) res++;
+	if (hungaryHelper(i))
+            ++res;
     }
     return res;
 }

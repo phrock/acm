@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
-
 /****************************************************************************
  *                                                                          *
  *                To see the world in a grain of sand,                      *
@@ -46,16 +35,16 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                          *
  ***************************************************************************/
 
+ifstream fin("input.txt");
+ofstream fout("output.txt");
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    /////////////////////////////////////////////////////////////////////////
-
-    
+    string s;
+    int x;
+    fin >> s >> x;
+    if (s == "front")
+        fout << (x == 1 ? "L" : "R") << endl;
+    else
+        fout << (x == 1 ? "R" : "L") << endl;
 }

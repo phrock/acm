@@ -1,7 +1,7 @@
 /*
   ID:   aphrodi1
   LANG: C++
-  PROG: replaceme
+  PROG: buylow
 */
 
 #include <cctype>
@@ -32,8 +32,8 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
+ifstream fin("buylow.in");
+ofstream fout("buylow.out");
 streambuf *cin_buf = cin.rdbuf();
 streambuf *cout_buf = cout.rdbuf();
 
@@ -57,5 +57,35 @@ int main()
     #endif
     /////////////////////////////////////////////////////////////////////////
 
-    
+    int n;
+    cin >> n;
+    vector<int> v(n + 2), dp(n + 2), cnt(n + 2);
+    v[0] = INT_MAX;
+    dp[0] = 0;
+    cnt[0] = 1;
+    for (int i = 1; i <= n; ++i)
+        cin >> v[i];
+    v[n + 1] = -1;
+    for (int i = 1; i <= n + 1; ++i) {
+        int m = 0, start = 0;
+        for (int j = i - 1; j >= 0; --j)
+            if (v[i] == v[j]) {
+                start = j;
+                break;
+            }
+        for (int j = start; j < i; ++j) {
+            if (v[j] > v[i])
+                m = max(m, dp[j]);
+        }
+        dp[i] = m + 1;
+        for (int j = start; j < i; ++j)
+            if (v[j] > v[i] && dp[j] == m)
+                cnt[i] += cnt[j];
+    }
+
+    #ifdef DEBUG
+    print(dp);
+    print(cnt);
+    #endif
+    cout << dp[n + 1] - 1 << " " << cnt[n + 1] << endl;
 }

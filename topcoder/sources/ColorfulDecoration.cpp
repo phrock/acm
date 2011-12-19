@@ -67,7 +67,96 @@ int main()
  *                                                                             *
  ******************************************************************************/
 
+// int n;
+// int res;
+// int v[55];
+// vector<int> xa, ya, xb, yb;
+
+// void dfs(int cur, int tmp)
+// {
+//     if (cur == n) {
+//         res = max(res, tmp);
+//         return;
+//     }
+//     if (cur == 0) {
+//         for (int i = 0; i < 2; ++i) {
+//             int backup = v[cur];
+//             v[cur] = i;
+//             dfs(cur + 1, tmp);
+//             v[cur] = backup;
+//         }
+//     } else {
+//         for (int i = 0; i < 2; ++i) {
+//             int backup = v[cur];
+//             v[cur] = i;
+//             int x, y;
+//             if (v[cur] == 0) {
+//                 x = xa[cur];
+//                 y = ya[cur];
+//             } else {
+//                 x = xb[cur];
+//                 y = yb[cur];
+//             }
+//             int tmp_backup = tmp;
+//             for (int j = 0; j < cur; ++j)
+//                 if (v[j] == 0)
+//                     tmp = min(tmp, max(abs(xa[j] - x), abs(ya[j] - y)));
+//                 else
+//                     tmp = min(tmp, max(abs(xb[j] - x), abs(yb[j] - y)));
+//             if (tmp > res)
+//                 dfs(cur + 1, tmp);
+//             tmp = tmp_backup;
+//             v[cur] = backup;
+//         }
+//     }
+// }
+
+// int ColorfulDecoration :: getMaximum(vector <int> _xa, vector <int> _ya, vector <int> _xb, vector <int> _yb)
+// {
+//     n = (int)(_xa).size();
+//     res = 0;
+//     memset(v, 0, sizeof(v));
+//     xa = _xa, ya = _ya, xb = _xb, yb = _yb;
+
+//     dfs(0, INT_MAX);
+//     return res;
+// }
+
 int ColorfulDecoration :: getMaximum(vector <int> xa, vector <int> ya, vector <int> xb, vector <int> yb)
 {
-    
+    int n = (int)(xa).size();
+    int low = 0, high = INT_MAX;
+    while (low + 1 < high) {
+        int mid = low + (high - low) / 2;
+        vector< vector<int> > g(2 * n, vector<int>(2 * n));
+        for (int i = 0; i < (int)(g).size(); ++i)
+            for (int j = 0; j < (int)(g[i]).size(); ++j) {
+                if (i == j) {
+                    g[i][j] = 1;
+                    continue;
+                }
+                if (i % n == j & n)
+                    continue;
+                int x1 = i < n ? xa[i] : xb[i - n];
+                int y1 = i < n ? ya[i] : yb[i - n];
+                int x2 = j < n ? xa[j] : xb[j - n];
+                int y2 = j < n ? ya[j] : yb[j - n];
+                if (abs(x1 - x2) < mid && abs(y1 - y2) < mid)
+                    g[i][j < n ? j + n : j - n] = 1;
+            }
+        for (int k = 0; k < 2 * n; ++k)
+            for (int i = 0; i < 2 * n; ++i)
+                for (int j = 0; j < 2 * n; ++j)
+                    if (g[i][k] && g[k][j])
+                        g[i][j] = 1;
+        bool ok = true;
+        for (int i = 0; i < n; ++i)
+            if (g[i][i + n] && g[i + n][i])
+                ok = false;
+        if (ok)
+            low = mid;
+        else
+            high = mid;
+    }
+    return low;
 }

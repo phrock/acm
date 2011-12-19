@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
-
 /****************************************************************************
  *                                                                          *
  *                To see the world in a grain of sand,                      *
@@ -46,16 +35,28 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                          *
  ***************************************************************************/
 
+int hit[10];
+int score[10];
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    /////////////////////////////////////////////////////////////////////////
-
-    
+    int n, m;
+    cin >> n >> m;
+    for (int i = 1; i <= n; ++i)
+        hit[i] = 100;
+    for (int i = 0; i < m; ++i) {
+        int x, y;
+        cin >> x >> y;
+        if (hit[x] > 0) {
+            if (hit[y] > 0) {
+                score[x] += 3;
+            }
+            hit[y] -= 8;
+        }
+    }
+    for (int i = 1; i <= n; ++i)
+        if (hit[i] > 0)
+            score[i] += hit[i] / 2;
+    for (int i = 1; i <= n; ++i)
+        cout << hit[i] << " " << score[i] << endl;
 }

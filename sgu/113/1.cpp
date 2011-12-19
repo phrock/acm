@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
-
 /****************************************************************************
  *                                                                          *
  *                To see the world in a grain of sand,                      *
@@ -46,16 +35,53 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                          *
  ***************************************************************************/
 
+const int MAX = 100000;
+bitset<MAX> is_prime;
+int prime[MAX];
+int prime_cnt;
+
+void create_prime()
+{
+    is_prime.set();
+    is_prime[0] = is_prime[1] = 0;
+    for (long long i = 2; i * i < MAX; ++i)
+        if (is_prime[i])
+            for (long long j = i * i; j < MAX; j += i)
+                is_prime[j] = 0;
+    prime_cnt = 0;
+    for (int i = 0; i < MAX; ++i)
+        if (is_prime[i])
+            prime[prime_cnt++] = i;
+}
+
+bool isPrime(int x)
+{
+    if (x < MAX)
+        return is_prime[x];
+    for (int i = 2; i * i <= x; ++i)
+        if (x % i == 0)
+            return false;
+    return true;
+}
+
+bool check(int x)
+{
+    for (int i = 0; i < prime_cnt; ++i) {
+        // cout << prime[i] << " " << x / prime[i] <<  endl;
+        if (x % prime[i] == 0 && isPrime(x / prime[i]))
+            return true;
+    }
+    return false;
+}
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    /////////////////////////////////////////////////////////////////////////
-
-    
+    create_prime();
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        cout << (check(x) ? "Yes" : "No") << endl;
+    }
 }

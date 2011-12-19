@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
-
 /****************************************************************************
  *                                                                          *
  *                To see the world in a grain of sand,                      *
@@ -49,13 +38,42 @@ streambuf *cout_buf = cout.rdbuf();
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    /////////////////////////////////////////////////////////////////////////
+    int n, k1, k2, p1, p2, p3;
+    cin >> n >> k1 >> k2 >> p1 >> p2 >> p3;
+    int res = 0;
+    if (n < p1) {
+        cout << 0 << endl;
+        return 0;
+    }
+    n -= p1;
+    --k1;
+    ++res;
 
-    
+    vector< pair<int, int> > v(3);
+    v[0] = make_pair(p1, k1);
+    v[1] = make_pair(p2, k2);
+    v[2] = make_pair(p3, n);
+
+    // 001, 101, 011, 111 => 100, 101, 110, 111
+    vector<int> candidate;
+    candidate.push_back(4);
+    candidate.push_back(5);
+    candidate.push_back(6);
+    candidate.push_back(7);
+
+    int orig_n = n;
+    for (int j = 0; j < (int)(candidate).size(); ++j) {
+        int tmp = 1, n = orig_n;
+        for (int i = 0; i < (int)(v).size(); ++i) {
+            if (((1 << i) & candidate[j]) == 0)
+                continue;
+            int aux = n / v[i].first;
+            aux = min(aux, v[i].second);
+            tmp += aux;
+            n -= aux * v[i].first;
+        }
+        res = max(res, tmp);
+    }
+
+    cout << res << endl;
 }

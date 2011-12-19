@@ -1,9 +1,3 @@
-/*
-  ID:   aphrodi1
-  LANG: C++
-  PROG: replaceme
-*/
-
 #include <cctype>
 #include <climits>
 #include <cmath>
@@ -32,11 +26,6 @@ using namespace std;
 #include "/Users/Aphrodite/program/acm/lib/debug.cpp"
 #endif
 
-ifstream fin("replaceme.in");
-ofstream fout("replaceme.out");
-streambuf *cin_buf = cin.rdbuf();
-streambuf *cout_buf = cout.rdbuf();
-
 /****************************************************************************
  *                                                                          *
  *                To see the world in a grain of sand,                      *
@@ -46,16 +35,63 @@ streambuf *cout_buf = cout.rdbuf();
  *                                                                          *
  ***************************************************************************/
 
+const int MAX = 100;
+int root[MAX + 5];
+int rank[MAX + 5];
+
+void initSet()
+{
+    for (int i = 1; i <= MAX; ++i) {
+        root[i] = i;
+        rank[i] = 1;
+    }
+}
+
+int findRoot(int x)
+{
+    if (root[x] != x)
+        root[x] = findRoot(root[x]);
+    return root[x];
+}
+
+void mergeDisjointSet(int a, int b)
+{
+    int ra = findRoot(a), rb = findRoot(b);
+    if (rank[ra] > rank[rb]) {
+        root[rb] = ra;
+        ++rank[ra];
+    } else {
+        root[ra] = rb;
+        ++rank[rb];
+    }
+}
 
 int main()
 {
-    cin.rdbuf(fin.rdbuf());
-    cout.rdbuf(fout.rdbuf());
-    #ifdef DEBUG
-    cin.rdbuf(cin_buf);
-    cout.rdbuf(cout_buf);
-    #endif
-    /////////////////////////////////////////////////////////////////////////
+    int n, m;
+    cin >> n >> m;
 
-    
+    initSet();
+    vector<bitset<MAX + 5> > bs(MAX + 5);
+    for (int i = 0; i < m; ++i) {
+        int k;
+        cin >> k;
+        int tmp;
+        for (int j = 0; j < k; ++j) {
+            cin >> tmp;
+            bs[tmp][i] = 1;
+        }
+    }
+
+    for (int i = 1; i <= n; ++i)
+        for (int j = i + 1; j <= n; ++j)
+            if (bs[i] == bs[j])
+                mergeDisjointSet(i, j);
+
+    int res = 0;
+    for (int i = 1; i <= n; ++i)
+        if (bs[i].count() && root[i] == i)
+            ++res;
+
+    cout << res << endl;
 }
