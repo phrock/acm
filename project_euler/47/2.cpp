@@ -75,8 +75,8 @@ int main()
 			    for (long long l=k+1; l<MAX/(i*j*k); l++) {
 				if (bs[l] == 1) {
 				    if (i*j*k*l < MAX) {
-					cout <<i<<" "<<j<<" "<<k<<" "<<l<<endl;
-					cout << i*j*k*l<<endl;
+					// cout <<i<<" "<<j<<" "<<k<<" "<<l<<endl;
+					// cout << i*j*k*l<<endl;
 					p4[i*j*k*l] = 1;
 					long long x = i*j*k*l;
 					for (int a=1;fac(i,a)*j*k*l<MAX ; a++) {

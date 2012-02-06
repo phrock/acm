@@ -46,8 +46,8 @@ int main()
     string s = "1";
     for (int i=0; i<1000; i++) {
 	s = addString(s, s);
-	cout << "*******" << endl;
-	cout << s << endl;
+	// cout << "*******" << endl;
+	// cout << s << endl;
     }
 
     long long result = 0;

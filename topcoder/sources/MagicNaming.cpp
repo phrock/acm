@@ -22,10 +22,10 @@
 #include <vector>
 using namespace std;
 
-class DesignCalendar
+class MagicNaming
 { 
 public: 
-    int shortestPeriod(int dayLength, int yearLength);
+    int maxReindeers(string magicName);
     
 // BEGIN CUT HERE
 	public:
@@ -33,18 +33,18 @@ public:
 	private:
 	template <typename T> string print_array(const vector<T> &V) { ostringstream os; os << "{ "; for (typename vector<T>::const_iterator iter = V.begin(); iter != V.end(); ++iter) os << '\"' << *iter << "\","; os << " }"; return os.str(); }
 	void verify_case(int Case, const int &Expected, const int &Received) { cerr << "Test Case #" << Case << "..."; if (Expected == Received) cerr << "PASSED" << endl; else { cerr << "FAILED" << endl; cerr << "\tExpected: \"" << Expected << '\"' << endl; cerr << "\tReceived: \"" << Received << '\"' << endl; } }
-	void test_case_0() { int Arg0 = 4; int Arg1 = 1461; int Arg2 = 4; verify_case(0, Arg2, shortestPeriod(Arg0, Arg1)); }
-	void test_case_1() { int Arg0 = 86400; int Arg1 = 31558150; int Arg2 = 1728; verify_case(1, Arg2, shortestPeriod(Arg0, Arg1)); }
-	void test_case_2() { int Arg0 = 98; int Arg1 = 100; int Arg2 = 49; verify_case(2, Arg2, shortestPeriod(Arg0, Arg1)); }
-	void test_case_3() { int Arg0 = 1000; int Arg1 = 50000100; int Arg2 = 10; verify_case(3, Arg2, shortestPeriod(Arg0, Arg1)); }
-	void test_case_4() { int Arg0 = 5673; int Arg1 = 28565335; int Arg2 = 5673; verify_case(4, Arg2, shortestPeriod(Arg0, Arg1)); }
-	void test_case_5() { int Arg0 = 5555; int Arg1 = 846555; int Arg2 = 1111; verify_case(5, Arg2, shortestPeriod(Arg0, Arg1)); }
+	void test_case_0() { string Arg0 = "aba"; int Arg1 = 2; verify_case(0, Arg1, maxReindeers(Arg0)); }
+	void test_case_1() { string Arg0 = "babbaba"; int Arg1 = 2; verify_case(1, Arg1, maxReindeers(Arg0)); }
+	void test_case_2() { string Arg0 = "philosophersstone"; int Arg1 = 5; verify_case(2, Arg1, maxReindeers(Arg0)); }
+	void test_case_3() { string Arg0 = "knuthmorrispratt"; int Arg1 = 7; verify_case(3, Arg1, maxReindeers(Arg0)); }
+	void test_case_4() { string Arg0 = "acrushpetrtourist"; int Arg1 = 7; verify_case(4, Arg1, maxReindeers(Arg0)); }
+	void test_case_5() { string Arg0 = "zzzzz"; int Arg1 = 5; verify_case(5, Arg1, maxReindeers(Arg0)); }
 
 // END CUT HERE
  
 }; 
 // BEGIN CUT HERE 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 template<class T> inline void print(T A) { cout<<"{ "; for (__typeof((A).begin()) i=(A).begin(); i!=(A).end(); ++i) cout<<*i<<", "; cout<<"}"<<endl; }
 template<class T> inline void print2(T A) { cout<<"{"<<endl; for (__typeof((A).begin()) i=(A).begin(); i!=(A).end(); ++i) {cout<<" { "; for (__typeof((*i).begin()) j=(*i).begin(); j!=(*i).end(); j++) cout<<*j<<", "; cout<<"}"; cout<<endl;} cout<<"}"<<endl; }
 template<class T> inline void printp(T A) { cout<<"{ "; for (__typeof((A).begin()) i=(A).begin(); i!=(A).end(); ++i) {cout<<"{"<<i->first<<", "<<i->second<<"}"; cout<<", ";} cout<<" }"<<endl; }
@@ -53,13 +53,44 @@ template<class T> inline void print2(T A[], int n, int m) { cout<<"{"<<endl; for
 
 int main()
 {
-    DesignCalendar ___test; 
+    MagicNaming ___test; 
     ___test.run_test(-1); 
 } 
-////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
 // END CUT HERE 
 
-int DesignCalendar :: shortestPeriod(int dayLength, int yearLength)
+/****************************************************************************
+ *                                                                          *
+ *                To see the world in a grain of sand,                      *
+ *                And a heaven in a wild flower;                            *
+ *                Hold infinity in the palm of your hand,                   *
+ *                And eternity in an hour.                                  *
+ *                                                                          *
+ ***************************************************************************/
+
+int dp[55][55];
+
+int MagicNaming :: maxReindeers(string magicName)
 {
-    return dayLength / __gcd(dayLength, yearLength);
+    int n = (int)(magicName).size();
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            dp[i][j] = INT_MIN;
+    for (int i = 0; i < n; ++i)
+        for (int j = i; j < n; ++j) {
+            if (!i) {
+                dp[i][j] = 1;
+                continue;
+            }
+            for (int k = 0; k < i; ++k) {
+                string a = magicName.substr(k, i - k);
+                string b = magicName.substr(i, j - i + 1);
+                if (a + b <= b + a)
+                    dp[i][j] = max(dp[i][j], dp[k][i - 1] + 1);
+            }
+        }
+    int res = 0;
+    for (int i = 0; i < n; ++i)
+        res = max(res, dp[i][n - 1]);
+    return res;
 }
